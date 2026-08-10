@@ -39,7 +39,7 @@ export default function InscriptionPage() {
         <div className="mb-10 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c79f33]">Arafat Voyage</p>
           <h1 className="mt-3 text-3xl font-bold text-[#0c4f33] sm:text-5xl">Inscription Hajj / Oumra</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-600">Remplissez vos informations. La demande sera enregistrée de manière sécurisée dans Supabase.</p>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-600">Remplissez vos informations. Les données et documents sont traités de manière sécurisée.</p>
         </div>
 
         <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-10">
@@ -50,7 +50,7 @@ export default function InscriptionPage() {
 
           {message && <div className="mb-8 rounded-2xl border border-[#c79f33]/30 bg-[#f5eee0] p-4 text-sm text-[#0c4f33]">{message}</div>}
 
-          <form onSubmit={handleSubmit} className="space-y-10">
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-10">
             <section>
               <h2 className="text-xl font-bold text-[#0c4f33]">1. Informations personnelles</h2>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
@@ -82,7 +82,7 @@ export default function InscriptionPage() {
 
             <section>
               <h2 className="text-xl font-bold text-[#0c4f33]">4. Documents</h2>
-              <p className="mt-2 text-sm text-slate-500">L’envoi des fichiers vers le Storage sera activé à l’étape 3.</p>
+              <p className="mt-2 text-sm text-slate-500">Passeport et photo obligatoires. Maximum 25 Mo par fichier.</p>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <label className="text-sm font-semibold">Passeport<input required type="file" accept="application/pdf,image/jpeg,image/png,image/webp" name="passportFile" className={inputClass} /></label>
                 <label className="text-sm font-semibold">Photo d'identité<input required type="file" accept="image/jpeg,image/png,image/webp" name="photoFile" className={inputClass} /></label>
@@ -92,7 +92,7 @@ export default function InscriptionPage() {
 
             <label className="block text-sm font-semibold">Informations complémentaires<textarea name="notes" rows={4} className={inputClass} /></label>
             <input type="hidden" name="registrationType" value={type} />
-            <button disabled={loading} type="submit" className="w-full rounded-xl bg-[#0c4f33] px-6 py-4 font-bold text-white shadow-sm transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60">{loading ? 'Enregistrement...' : `Envoyer ma demande ${type === 'hajj' ? 'Hajj' : 'Oumra'}`}</button>
+            <button disabled={loading} type="submit" className="w-full rounded-xl bg-[#0c4f33] px-6 py-4 font-bold text-white shadow-sm transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60">{loading ? 'Envoi des documents...' : `Envoyer ma demande ${type === 'hajj' ? 'Hajj' : 'Oumra'}`}</button>
           </form>
         </div>
       </div>
