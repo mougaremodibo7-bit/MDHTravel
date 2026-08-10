@@ -9,11 +9,28 @@ export default function InscriptionPage() {
   const searchParams = useSearchParams();
   const initialType = searchParams.get('type') === 'oumra' ? 'oumra' : 'hajj';
   const [type, setType] = useState(initialType);
-  const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/registrations', {
+        method: 'POST',
+        body: new FormData(event.currentTarget),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? 'Une erreur est survenue.');
+      setMessage(`Votre demande ${type === 'hajj' ? 'Hajj' : 'Oumra'} a bien été enregistrée. Référence : ${result.registration.id}`);
+      event.currentTarget.reset();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Impossible d’envoyer le formulaire.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -22,7 +39,7 @@ export default function InscriptionPage() {
         <div className="mb-10 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c79f33]">Arafat Voyage</p>
           <h1 className="mt-3 text-3xl font-bold text-[#0c4f33] sm:text-5xl">Inscription Hajj / Oumra</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-600">Remplissez vos informations. Nous vous contacterons pour la suite de votre dossier.</p>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-600">Remplissez vos informations. La demande sera enregistrée de manière sécurisée dans Supabase.</p>
         </div>
 
         <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-10">
@@ -31,7 +48,7 @@ export default function InscriptionPage() {
             <button type="button" onClick={() => setType('oumra')} className={`rounded-xl px-4 py-3 text-sm font-bold transition ${type === 'oumra' ? 'bg-[#0c4f33] text-white shadow-sm' : 'text-[#0c4f33]'}`}>Oumra</button>
           </div>
 
-          {submitted && <div className="mb-8 rounded-2xl border border-green-200 bg-green-50 p-4 text-sm text-green-800">Votre formulaire est prêt. La prochaine étape sera l'enregistrement sécurisé dans Supabase.</div>}
+          {message && <div className="mb-8 rounded-2xl border border-[#c79f33]/30 bg-[#f5eee0] p-4 text-sm text-[#0c4f33]">{message}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-10">
             <section>
@@ -65,7 +82,7 @@ export default function InscriptionPage() {
 
             <section>
               <h2 className="text-xl font-bold text-[#0c4f33]">4. Documents</h2>
-              <p className="mt-2 text-sm text-slate-500">Les fichiers seront envoyés vers le Storage Supabase à l'étape suivante.</p>
+              <p className="mt-2 text-sm text-slate-500">L’envoi des fichiers vers le Storage sera activé à l’étape 3.</p>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <label className="text-sm font-semibold">Passeport<input required type="file" accept="application/pdf,image/jpeg,image/png,image/webp" name="passportFile" className={inputClass} /></label>
                 <label className="text-sm font-semibold">Photo d'identité<input required type="file" accept="image/jpeg,image/png,image/webp" name="photoFile" className={inputClass} /></label>
@@ -73,12 +90,9 @@ export default function InscriptionPage() {
               </div>
             </section>
 
-            <section>
-              <label className="text-sm font-semibold">Informations complémentaires<textarea name="notes" rows={4} className={inputClass} /></label>
-            </section>
-
+            <label className="block text-sm font-semibold">Informations complémentaires<textarea name="notes" rows={4} className={inputClass} /></label>
             <input type="hidden" name="registrationType" value={type} />
-            <button type="submit" className="w-full rounded-xl bg-[#0c4f33] px-6 py-4 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-95">Envoyer ma demande {type === 'hajj' ? 'Hajj' : 'Oumra'}</button>
+            <button disabled={loading} type="submit" className="w-full rounded-xl bg-[#0c4f33] px-6 py-4 font-bold text-white shadow-sm transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60">{loading ? 'Enregistrement...' : `Envoyer ma demande ${type === 'hajj' ? 'Hajj' : 'Oumra'}`}</button>
           </form>
         </div>
       </div>
