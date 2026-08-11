@@ -1,33 +1,45 @@
 # Arafat Voyage
 
-Site public pour la gestion des demandes Hajj, Oumra et voyages internationaux depuis Bamako.
+Plateforme Arafat Voyage pour les demandes Hajj, Oumra et voyages internationaux depuis Bamako.
 
-## Fonctionnalités actuelles
+## Fonctionnalités
 
-- Landing page responsive
-- Présentation Hajj / Oumra / voyages internationaux
-- Formulaire d'inscription en ligne
-- Enregistrement direct dans Supabase
-- Génération automatique du numéro de dossier `ARF-AAAA-XXXXXX`
-- Validation minimale des données
-- Compatible GitHub Pages
+- Site vitrine responsive
+- Inscription Hajj / Oumra / voyage international
+- Numéro de dossier automatique `ARF-AAAA-XXXXXX`
+- Base de données Supabase avec RLS
+- Connexion professionnelle
+- Tableau de bord Admin / Personnel
+- Gestion des dossiers et statuts
+- Gestion des clients
+- Suivi des documents
+- Suivi des paiements
+- Statistiques
+- Gestion des comptes du personnel réservée aux administrateurs
+- Contacts Arafat Voyage avec liens téléphone et WhatsApp
 
-## Supabase
+## Accès professionnel
 
-Projet : `bhpscrmwsmcwmvapemxz`
+URL : `login.html`
+
+Les utilisateurs se connectent avec leur compte Supabase Auth. Le rôle est lu dans `public.profiles` :
+
+- `admin` : accès complet, y compris création de comptes du personnel
+- `agent` : accès opérationnel sans gestion des comptes du personnel
+- `client` : aucun accès au tableau de bord professionnel
+
+Aucun mot de passe administrateur n'est stocké dans GitHub.
+
+## Sécurité
+
+Les tables sensibles sont protégées par Row Level Security. Les fonctions `is_admin()` et `is_staff()` contrôlent les permissions côté base de données. La création des comptes du personnel passe par la fonction Edge Supabase `create-staff-user`, protégée par JWT.
 
 La clé utilisée côté navigateur est une clé publishable. Ne jamais mettre une clé `service_role` dans le frontend.
 
 ## Publication
 
-Le site est constitué de fichiers statiques (`index.html`, `styles.css`, `app.js`) et peut être publié directement avec GitHub Pages.
+Le projet est constitué de fichiers statiques et peut être publié avec GitHub Pages :
 
-Dans GitHub : **Settings → Pages → Deploy from a branch → main → / (root)**.
+**Settings → Pages → Deploy from a branch → main → / (root)**.
 
-L'URL sera ensuite de la forme :
-
-`https://mougaremodibo7-bit.github.io/MDHTravel/`
-
-## Important
-
-Le numéro WhatsApp actuellement affiché est un placeholder `22300000000`. Il doit être remplacé par le numéro professionnel réel avant communication publique.
+URL prévue : `https://mougaremodibo7-bit.github.io/MDHTravel/`
