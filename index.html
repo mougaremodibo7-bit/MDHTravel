@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arafat Voyage — Hajj, Oumra et voyages internationaux depuis Bamako, Mali.">
+  <title>Arafat Voyage | Hajj, Oumra & Voyages</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="#accueil"><span>ARAFAT</span> VOYAGE</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#accueil">Accueil</a><a href="#services">Services</a><a href="#inscription">Inscription</a><a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-content">
+        <div>
+          <p class="eyebrow">BAMAKO · MALI</p>
+          <h1>Voyagez avec sérénité.<br><span>Partez avec Arafat.</span></h1>
+          <p class="hero-text">Organisation du Hajj, de la Oumra et de vos voyages internationaux avec accompagnement professionnel.</p>
+          <div class="actions"><a class="btn primary" href="#inscription">S'inscrire maintenant</a><a class="btn secondary" href="https://wa.me/22300000000" target="_blank" rel="noopener">WhatsApp</a></div>
+        </div>
+        <div class="hero-card"><div class="kaaba">🕋</div><h2>Hajj & Oumra</h2><p>Un accompagnement de Bamako jusqu'aux Lieux Saints.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="services"><div class="container"><div class="section-heading"><p class="eyebrow">NOS SERVICES</p><h2>Tout pour préparer votre voyage</h2></div><div class="cards">
+      <article class="card"><div class="icon">🕋</div><h3>Hajj</h3><p>Organisation complète, accompagnement et suivi de votre dossier.</p><a href="#inscription">Demander une inscription →</a></article>
+      <article class="card"><div class="icon">🌙</div><h3>Oumra</h3><p>Des formules adaptées pour accomplir votre Oumra dans les meilleures conditions.</p><a href="#inscription">Voir l'inscription →</a></article>
+      <article class="card"><div class="icon">✈️</div><h3>Voyages internationaux</h3><p>Billets d'avion, visas, hôtels et assistance pour vos déplacements.</p><a href="#inscription">Faire une demande →</a></article>
+    </div></div></section>
+
+    <section class="section accent" id="inscription"><div class="container form-wrap"><div class="section-heading"><p class="eyebrow">INSCRIPTION EN LIGNE</p><h2>Créez votre dossier voyage</h2><p>Remplissez le formulaire. Votre numéro de dossier sera généré automatiquement.</p></div>
+      <form id="registrationForm" class="form">
+        <div class="grid"><label>Service<select name="service" required><option value="">Choisir</option><option value="hajj">Hajj</option><option value="omra">Oumra</option><option value="voyage">Voyage international</option></select></label><label>Nom et prénom<input name="full_name" required minlength="3" placeholder="Ex. Aoua Traoré"></label></div>
+        <div class="grid"><label>Date de naissance<input type="date" name="birth_date"></label><label>Lieu de naissance<input name="birth_place" placeholder="Bamako"></label></div>
+        <div class="grid"><label>Téléphone<input name="phone" type="tel" required minlength="8" placeholder="+223 70 00 00 00"></label><label>Email<input name="email" type="email" placeholder="vous@exemple.com"></label></div>
+        <div class="grid"><label>N° passeport<input name="passport_number" placeholder="Passeport"></label><label>Date de voyage souhaitée<input name="travel_date" type="date"></label></div>
+        <label>Message / besoin particulier<textarea name="notes" rows="4" placeholder="Informations complémentaires..."></textarea></label>
+        <button class="btn primary full" type="submit">Envoyer mon inscription</button><p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </div></section>
+
+    <section class="section" id="contact"><div class="container contact"><div><p class="eyebrow">CONTACT</p><h2>Parlons de votre voyage</h2><p>Bamako, Mali · Assistance et informations sur nos programmes Hajj, Oumra et voyages.</p></div><div class="contact-box"><strong>WhatsApp</strong><a href="https://wa.me/22300000000" target="_blank" rel="noopener">Écrire à Arafat Voyage</a><span>Remplacez le numéro dans <code>index.html</code> par votre numéro professionnel.</span></div></div></section>
+  </main>
+  <footer><div class="container footer"><span>© 2026 Arafat Voyage</span><span>Hajj · Oumra · Voyages internationaux</span></div></footer>
+</body>
+</html>
